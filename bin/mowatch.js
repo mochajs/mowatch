@@ -8,7 +8,7 @@ var yargs = require('yargs');
 var mowatch = require('../lib');
 
 var argv = yargs
-  .usage(pkg.description + '\n\n\t$0 [mocha options] <test files>')
+  .usage(pkg.description + '\n\n$0 [mocha options] <test files>')
   .version(function() {
     return pkg.version;
   })
