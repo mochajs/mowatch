@@ -1,6 +1,6 @@
 {
   "name": "mowatch",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Watch Mocha tests for changes and execute them",
   "license": "MIT",
   "repository": "https://github.com/mochajs/mowatch.git",
