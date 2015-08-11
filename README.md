@@ -1,18 +1,40 @@
-# mowatch [![Build Status](https://travis-ci.org/boneskull/mowatch.svg?branch=master)](https://travis-ci.org/boneskull/mowatch)
+# mowatch [![Build Status](https://travis-ci.org/mochajs/mowatch.svg?branch=master)](https://travis-ci.org/mochajs/mowatch)
 
 > Watch Mocha tests for changes and execute them 
+
+Prototype of a replacement for `mocha --watch` functionality.
 
 ## Install
 
 ```shell
-$ npm install -gmowatch
+$ npm install -g mowatch
+```
+
+`mowatch` requires [`mocha`](https://mochajs.org) in some form.  If `mocha` is present in the local project, its executable will be used instead of a global one.
+
+## Example
+
+```shell
+$ mowatch test/**/*.js --watch lib/**/*.js
 ```
 
 ## Usage
 
-```js
-var mowatch = require('mowatch');
 ```
+Watch Mocha tests for changes and execute them
+
+mowatch [mocha options] <test files>
+
+Options:
+  --version    Show version number                                     [boolean]
+  --watch, -w  Additional files/globs to watch; comma-separated
+                                                           [array] [default: []]
+  --help, -h   Show help                                               [boolean]
+
+Refer to "mocha --help" for more command line options.
+```
+
+`mowatch` accepts all command line options except those listed above.
 
 ## License
 
