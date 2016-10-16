@@ -24,6 +24,31 @@ var argv = yargs
   .epilog('Refer to "mocha --help" for more command line options.')
   .argv;
 
+function optionToArray(value) {
+  if (typeof value === 'object' && Array.isArray(value)) {
+    return Array.from(value);
+  } else if (typeof value === 'undefined') {
+    return [];
+  }
+  return [value];
+}
+
+function parseExtensions() {
+  var extensions = new Set(['js']);
+  optionToArray(argv.compilers).concat(optionToArray(argv['watch-extensions']))
+    .map(function(x) {
+      return x.split(',');
+    })
+    .reduce(function(x, y) {
+      return x.concat(y);
+    }, [])
+    .map(function(x) {
+      return x.split(':')[0];
+    })
+    .forEach(extensions.add.bind(extensions));
+  return Array.from(extensions);
+}
+
 function notifyErr(err) {
   if (err) {
     console.error('mowatch: ' + chalk.red('Tests failed!'));
@@ -39,7 +64,8 @@ if (!(argv.help && argv.version)) {
     argv._.push('test');
   }
 
-  async.map([argv._, argv.watch], mowatch.globberFactory(argv.recursive),
+  async.map([argv._, argv.watch],
+    mowatch.globberFactory(argv.recursive, parseExtensions()),
     function(err, result) {
       if (err) {
         return fatal(err);
