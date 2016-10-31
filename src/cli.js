@@ -1,43 +1,45 @@
 #!/usr/bin/env node
-'use strict';
+import chalk from 'chalk';
+import Liftoff from 'liftoff';
+import interpret from 'interpret';
+import yargs from 'yargs';
+import {modulePath} from './mocha-path';
+import mowatch from './mowatch';
 
-var pkg = require('../package.json');
-var chalk = require('chalk');
-var async = require('async');
-var yargs = require('yargs');
-var mowatch = require('../lib');
-var liftoff = require('liftoff');
+const Mowatch = new Liftoff({
+  name: 'mowatch',
+  processTitle: 'mocha',
+  configName: '.mowatch',
+  moduleName: 'mowatch',
+  extensions: interpret
+});
 
-var argv = yargs
-  .usage(pkg.description + '\n\n$0 [mocha options] <test files>')
-  .version(function () {
-    return pkg.version;
-  })
+
+let mochaModulePath;
+const argv = yargs
+  .usage('$0 [mocha options]')
+  .version()
   .option('watch', {
     alias: 'w',
     describe: 'Additional files/globs to watch; comma-separated',
-    array: true,
-    'default': []
+    array: true
   })
   .option('poll', {
-    alias: 'p',
     describe: 'Force polling; use for networked drives',
     boolean: true,
     default: false
   })
+  .option('mocha-path', {
+    describe: 'Specify absolute path to mocha module',
+    string: true
+  })
   .help('help')
   .alias('help', 'h')
+  .check(argv => {
+    mochaModulePath =
+      argv.mochaPath ? modulePath(argv.mochaPath) : modulePath();
+  })
   .epilog('Refer to "mocha --help" for more command line options.').argv;
-
-function notifyErr (err) {
-  if (err) {
-    console.error('mowatch: ' + chalk.red('Tests failed!'));
-  }
-}
-
-function fatal (err) {
-  throw new Error(err);
-}
 
 if (!(argv.help && argv.version)) {
   if (!argv._.length) {
