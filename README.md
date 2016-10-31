@@ -38,4 +38,4 @@ Refer to "mocha --help" for more command line options.
 
 ## License
 
-© 2015 [Christopher Hiller](https://mochajs.org).  Licensed MIT.
+:copyright: 2016 [JS Foundation](https://js.foundation) and contributors.
