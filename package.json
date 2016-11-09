@@ -32,7 +32,7 @@
     "bin-path": "0.0.3",
     "chalk": "^1.1.0",
     "gaze": "^0.5.1",
-    "unparse-args": "^1.0.1",
+    "unparse-args": "^1.1.0",
     "which": "^1.1.1",
     "yargs": "^3.15.0"
   },
