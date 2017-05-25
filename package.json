@@ -34,7 +34,7 @@
     "gaze": "^1.1.0",
     "unparse-args": "^1.0.1",
     "which": "^1.1.1",
-    "yargs": "^3.15.0"
+    "yargs": "^5.0.0"
   },
   "devDependencies": {
     "chai": "^3.0.0",
